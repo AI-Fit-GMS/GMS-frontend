@@ -1,0 +1,41 @@
+{
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "loginButton": "تسجيل الدخول",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "errors": {
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "serverError": "خطأ في الخادم. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "members": "الأعضاء",
+    "trainers": "المدربون",
+    "classes": "الفصول",
+    "billing": "الفواتير",
+    "reports": "التقارير",
+    "settings": "الإعدادات"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "add": "إضافة",
+    "update": "تحديث",
+    "view": "عرض",
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  }
+}
+
