@@ -1,0 +1,41 @@
+{
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "Sign In",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "serverError": "Server error. Please try again."
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "members": "Members",
+    "trainers": "Trainers",
+    "classes": "Classes",
+    "billing": "Billing",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "loading": "Loading...",
+    "add": "Add",
+    "update": "Update",
+    "view": "View",
+    "actions": "Actions",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive"
+  }
+}
+

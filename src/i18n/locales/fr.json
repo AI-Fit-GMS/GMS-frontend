@@ -1,0 +1,41 @@
+{
+  "auth": {
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginButton": "Se connecter",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "hasAccount": "Vous avez déjà un compte ?",
+    "errors": {
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "serverError": "Erreur serveur. Veuillez réessayer."
+    }
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "members": "Membres",
+    "trainers": "Entraîneurs",
+    "classes": "Cours",
+    "billing": "Facturation",
+    "reports": "Rapports",
+    "settings": "Paramètres"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "add": "Ajouter",
+    "update": "Mettre à jour",
+    "view": "Voir",
+    "actions": "Actions",
+    "status": "Statut",
+    "active": "Actif",
+    "inactive": "Inactif"
+  }
+}
+
