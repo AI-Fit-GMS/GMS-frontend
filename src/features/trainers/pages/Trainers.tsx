@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, UserCog } from 'lucide-react';
 import { useTrainers } from '../hooks/useTrainers';
 import { useDebounce } from '../../../hooks/useDebounce';
 import Button from '../../../commonComponents/buttons/Button';
@@ -33,20 +33,29 @@ const Trainers = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.trainers')}</h1>
-          <p className="text-gray-600 mt-1">Manage your gym trainers</p>
+      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <UserCog className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.trainers')}</h1>
+              <p className="text-gray-600 mt-1">Manage your gym trainers</p>
+            </div>
+          </div>
+          <Button 
+            leftIcon={<Plus className="w-4 h-4" />}
+          >
+            Add Trainer
+          </Button>
         </div>
-        <Button leftIcon={<Plus className="w-4 h-4" />}>
-          Add Trainer
-        </Button>
       </div>
 
       {/* Actions Bar */}
-      <div className="bg-white rounded-xl shadow-sm p-4">
+      <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
@@ -64,26 +73,26 @@ const Trainers = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-gray-600 text-sm">Total Trainers</p>
+        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+          <p className="text-gray-600 text-sm font-medium">Total Trainers</p>
           <p className="text-3xl font-bold text-gray-800 mt-2">{totalTrainers}</p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-gray-600 text-sm">Active</p>
+        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+          <p className="text-gray-600 text-sm font-medium">Active</p>
           <p className="text-3xl font-bold text-green-600 mt-2">
-            {trainers.filter((t) => t.status === 'active').length}
+            {trainers.filter((t: any) => t.status === 'active').length}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-gray-600 text-sm">On Leave</p>
+        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+          <p className="text-gray-600 text-sm font-medium">On Leave</p>
           <p className="text-3xl font-bold text-yellow-600 mt-2">
-            {trainers.filter((t) => t.status === 'on_leave').length}
+            {trainers.filter((t: any) => t.status === 'on_leave').length}
           </p>
         </div>
       </div>
 
       {/* Trainers Table */}
-      <div className="bg-white rounded-xl shadow-sm">
+      <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
         <TrainerTable
           trainers={trainers}
           loading={isLoading}
