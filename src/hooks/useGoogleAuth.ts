@@ -40,7 +40,6 @@ export const useGoogleAuth = () => {
     try {
       // Dynamic import to avoid errors when Google OAuth is not configured
       const { useGoogleLogin } = require('@react-oauth/google');
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       googleLoginHook = useGoogleLogin({
         onSuccess: (tokenResponse: any) => {
           googleLoginMutation.mutate(tokenResponse.access_token);
