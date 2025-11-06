@@ -47,23 +47,30 @@ const Members = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.members')}</h1>
-          <p className="text-gray-600 mt-1">Manage your gym members</p>
+      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <Users className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.members')}</h1>
+              <p className="text-gray-600 mt-1">Manage your gym members</p>
+            </div>
+          </div>
+          <Button
+            leftIcon={<Plus className="w-4 h-4" />}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Member
+          </Button>
         </div>
-        <Button
-          leftIcon={<Plus className="w-4 h-4" />}
-          onClick={() => setIsModalOpen(true)}
-        >
-          Add Member
-        </Button>
       </div>
 
       {/* Actions Bar */}
-      <div className="bg-white rounded-xl shadow-sm p-4">
+      <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
