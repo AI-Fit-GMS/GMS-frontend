@@ -2,17 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../hooks/useAuth';
-import { useGoogleAuth } from '../../../hooks/useGoogleAuth';
 import { ROUTES } from '../../../routes';
 import { Input } from '../../../commonComponents/forms/Input';
 import Button from '../../../commonComponents/buttons/Button';
 import { Mail, Lock, User, Phone } from 'lucide-react';
-import { FcGoogle } from 'react-icons/fc';
+import { GoogleLoginButton } from '../../../components/auth/GoogleLoginButton';
 
 const Signup = () => {
   const { t } = useTranslation();
   const { signup, isSigningUp } = useAuth();
-  const { googleLogin, isGoogleLoggingIn } = useGoogleAuth();
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   const [formData, setFormData] = useState({
     firstName: '',
@@ -167,18 +165,7 @@ const Signup = () => {
                 <span className="px-2 bg-white text-gray-500">Or sign up with</span>
               </div>
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              fullWidth
-              className="mt-4"
-              onClick={() => googleLogin()}
-              disabled={isGoogleLoggingIn}
-              isLoading={isGoogleLoggingIn}
-              leftIcon={<FcGoogle className="w-5 h-5" />}
-            >
-              {isGoogleLoggingIn ? 'Signing up...' : 'Sign up with Google'}
-            </Button>
+            <GoogleLoginButton variant="signup" />
           </div>
         )}
 

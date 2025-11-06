@@ -2,17 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../hooks/useAuth';
-import { useGoogleAuth } from '../../../hooks/useGoogleAuth';
 import { ROUTES } from '../../../routes';
 import { Input } from '../../../commonComponents/forms/Input';
 import Button from '../../../commonComponents/buttons/Button';
 import { Mail, Lock } from 'lucide-react';
-import { FcGoogle } from 'react-icons/fc';
+import { GoogleLoginButton } from '../../../components/auth/GoogleLoginButton';
 
 const Login = () => {
   const { t } = useTranslation();
   const { login, isLoggingIn } = useAuth();
-  const { googleLogin, isGoogleLoggingIn } = useGoogleAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -51,8 +49,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100">
+      <div className="bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-elegant-lg w-full max-w-md animate-fade-in border border-white/20">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">
             {t('auth.login')}
@@ -111,18 +109,7 @@ const Login = () => {
                 <span className="px-2 bg-white text-gray-500">Or continue with</span>
               </div>
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              fullWidth
-              className="mt-4"
-              onClick={() => googleLogin()}
-              disabled={isGoogleLoggingIn}
-              isLoading={isGoogleLoggingIn}
-              leftIcon={<FcGoogle className="w-5 h-5" />}
-            >
-              {isGoogleLoggingIn ? 'Signing in...' : 'Sign in with Google'}
-            </Button>
+            <GoogleLoginButton variant="login" />
           </div>
         )}
 

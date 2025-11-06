@@ -1,4 +1,3 @@
-import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -6,6 +5,8 @@ import { googleLoginApi } from '../services/authApis';
 import { loginStart, loginSuccess, loginFailure } from '../redux/slices/authSlice';
 import { showToast } from '../redux/slices/uiSlice';
 import { ROUTES } from '../routes';
+
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 export const useGoogleAuth = () => {
   const dispatch = useDispatch();
@@ -32,19 +33,35 @@ export const useGoogleAuth = () => {
     },
   });
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      // Send the access token to your backend
-      googleLoginMutation.mutate(tokenResponse.access_token);
-    },
-    onError: () => {
-      dispatch(showToast({ message: 'Google login failed', type: 'error' }));
-    },
-  });
+  const googleLogin = () => {
+    if (!googleClientId) {
+      dispatch(showToast({ 
+        message: 'Google authentication is not configured. Please use email/password login.', 
+        type: 'error' 
+      }));
+      return;
+    }
+    
+    // Dynamically import and use Google login only when needed and client ID exists
+    import('@react-oauth/google').then(({ useGoogleLogin }) => {
+      // This will be handled by the component that has GoogleOAuthProvider
+      // For now, show error if provider is not available
+      dispatch(showToast({ 
+        message: 'Google authentication is not available. Please ensure GoogleOAuthProvider is configured.', 
+        type: 'error' 
+      }));
+    }).catch(() => {
+      dispatch(showToast({ 
+        message: 'Google authentication is not available. Please use email/password login.', 
+        type: 'error' 
+      }));
+    });
+  };
 
   return {
     googleLogin,
     isGoogleLoggingIn: googleLoginMutation.isPending,
+    isGoogleEnabled: !!googleClientId,
   };
 };
 

@@ -40,14 +40,20 @@ const Classes = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.classes')}</h1>
-          <p className="text-gray-600 mt-1">Manage fitness classes and schedules</p>
-        </div>
-        <div className="flex gap-2">
+      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <Calendar className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.classes')}</h1>
+              <p className="text-gray-600 mt-1">Manage fitness classes and schedules</p>
+            </div>
+          </div>
+          <div className="flex gap-2 flex-wrap">
           <Button
             variant={viewMode === 'calendar' ? 'primary' : 'outline'}
             onClick={() => setViewMode('calendar')}
@@ -61,16 +67,19 @@ const Classes = () => {
           >
             List
           </Button>
-          <Button leftIcon={<Plus className="w-4 h-4" />}>
+          <Button 
+            leftIcon={<Plus className="w-4 h-4" />}
+          >
             Add Class
           </Button>
+          </div>
         </div>
       </div>
 
       {viewMode === 'list' ? (
         <>
           {/* Actions Bar */}
-          <div className="bg-white rounded-xl shadow-sm p-4">
+          <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
@@ -107,32 +116,32 @@ const Classes = () => {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <p className="text-gray-600 text-sm">Total Classes</p>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+              <p className="text-gray-600 text-sm font-medium">Total Classes</p>
               <p className="text-3xl font-bold text-gray-800 mt-2">{totalClasses}</p>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <p className="text-gray-600 text-sm">Active</p>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+              <p className="text-gray-600 text-sm font-medium">Active</p>
               <p className="text-3xl font-bold text-green-600 mt-2">
-                {classes.filter((c) => c.status === 'active').length}
+                {classes.filter((c: any) => c.status === 'active').length}
               </p>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <p className="text-gray-600 text-sm">Today's Classes</p>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+              <p className="text-gray-600 text-sm font-medium">Today's Classes</p>
               <p className="text-3xl font-bold text-blue-600 mt-2">
                 {schedule.length}
               </p>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <p className="text-gray-600 text-sm">Total Enrollment</p>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
+              <p className="text-gray-600 text-sm font-medium">Total Enrollment</p>
               <p className="text-3xl font-bold text-purple-600 mt-2">
-                {classes.reduce((sum, c) => sum + c.enrolled, 0)}
+                {classes.reduce((sum: number, c: any) => sum + c.enrolled, 0)}
               </p>
             </div>
           </div>
 
           {/* Classes Table */}
-          <div className="bg-white rounded-xl shadow-sm">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
             <ClassTable
               classes={classes}
               loading={isLoading}

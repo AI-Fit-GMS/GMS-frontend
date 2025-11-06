@@ -5,7 +5,7 @@ export const ROUTES = {
   SIGNUP: '/signup',
   FORGOT_PASSWORD: '/forgot-password',
 
-  // Dashboard
+  // Dashboard (Admin - legacy, will redirect based on role)
   DASHBOARD: '/dashboard',
 
   // Members
@@ -32,8 +32,15 @@ export const ROUTES = {
 
   // Admin
   ADMIN: '/admin',
+  ADMIN_ANALYTICS: '/admin/analytics',
   ADMIN_SETTINGS: '/admin/settings',
   ADMIN_REPORTS: '/admin/reports',
+
+  // Client Dashboard
+  CLIENT_DASHBOARD: '/client/dashboard',
+
+  // Community
+  COMMUNITY: '/community',
 
   // Profile
   PROFILE: '/profile',
