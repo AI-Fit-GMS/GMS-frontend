@@ -58,6 +58,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.removeItem('authToken');
       localStorage.removeItem('refreshToken');
+      localStorage.removeItem('mockUser');
     },
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;

@@ -1,4 +1,4 @@
-# 🎉 GymPro Frontend - Project Complete!
+# 🎉 AI-Fit Frontend - Project Complete!
 
 ## ✅ All Modules Completed
 
@@ -273,7 +273,7 @@ npm run build
 ### Environment Variables
 ```env
 VITE_API_BASE_URL=https://api.yourdomain.com/api
-VITE_APP_NAME=GymPro
+VITE_APP_NAME=AI-Fit
 VITE_ENABLE_DEVTOOLS=false
 ```
 

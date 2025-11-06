@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide - GymPro Frontend
+# 🚀 Quick Start Guide - AI-Fit Frontend
 
 ## Running the Application
 
@@ -48,7 +48,7 @@ npm run preview
 Create `.env.development` file:
 ```env
 VITE_API_BASE_URL=http://localhost:5000/api
-VITE_APP_NAME=GymPro
+VITE_APP_NAME=AI-Fit
 VITE_ENABLE_DEVTOOLS=true
 VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 ```

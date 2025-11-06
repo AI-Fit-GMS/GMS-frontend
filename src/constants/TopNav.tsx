@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { Bell, Search } from 'lucide-react';
+import { ROUTES } from '../routes';
 
 const TopNav = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -22,6 +24,17 @@ const TopNav = () => {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
+          {/* Admin Panel Button */}
+          {user?.role === 'admin' && (
+            <Link
+              to={ROUTES.ADMIN_DASHBOARD}
+              className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-semibold text-sm"
+            >
+              <span className="inline-flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+              Admin Command
+            </Link>
+          )}
+
           {/* Notifications */}
           <button className="p-2 hover:bg-gray-100 rounded-lg relative">
             <Bell className="w-5 h-5 text-gray-600" />

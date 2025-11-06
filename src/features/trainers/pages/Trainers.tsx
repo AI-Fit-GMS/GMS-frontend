@@ -6,11 +6,11 @@ import { useDebounce } from '../../../hooks/useDebounce';
 import Button from '../../../commonComponents/buttons/Button';
 import TrainerTable from '../components/TrainerTable';
 import LoadingSpinner from '../../../commonComponents/loading-spinner/LoadingSpinner';
+import { Trainer } from '../types/trainer.types';
 
 const Trainers = () => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({ status: 'all' as const });
   const [page, setPage] = useState(1);
 
   const debouncedSearch = useDebounce(searchTerm, 500);
@@ -25,7 +25,7 @@ const Trainers = () => {
   } = useTrainers({
     page,
     search: debouncedSearch,
-    ...filters,
+    status: 'all',
   });
 
   if (isLoading && trainers.length === 0) {
@@ -80,13 +80,13 @@ const Trainers = () => {
         <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
           <p className="text-gray-600 text-sm font-medium">Active</p>
           <p className="text-3xl font-bold text-green-600 mt-2">
-            {trainers.filter((t: any) => t.status === 'active').length}
+            {trainers.filter((t: Trainer) => t.status === 'active').length}
           </p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow hover:-translate-y-1">
           <p className="text-gray-600 text-sm font-medium">On Leave</p>
           <p className="text-3xl font-bold text-yellow-600 mt-2">
-            {trainers.filter((t: any) => t.status === 'on_leave').length}
+            {trainers.filter((t: Trainer) => t.status === 'on_leave').length}
           </p>
         </div>
       </div>

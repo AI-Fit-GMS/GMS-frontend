@@ -15,13 +15,13 @@
 4. Click **Create Credentials** → **OAuth client ID**
 5. If prompted, configure the OAuth consent screen:
    - User Type: External (or Internal for Google Workspace)
-   - App name: GymPro
+   - App name: AI-Fit
    - Support email: your-email@example.com
    - Authorized domains: your-domain.com
    - Save and Continue
 6. For OAuth client:
    - Application type: **Web application**
-   - Name: GymPro Frontend
+   - Name: AI-Fit Frontend
    - Authorized JavaScript origins:
      - `http://localhost:5173`
      - `http://localhost:5174`

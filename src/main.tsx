@@ -10,21 +10,19 @@ import App from './App';
 import './index.css';
 import './i18n';
 
-// Create a query client with optimized settings for fast performance
+// Create a query client with optimized defaults
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
       refetchOnReconnect: false,
-      retry: 0, // No retries for faster failure feedback
-      staleTime: 30 * 60 * 1000, // 30 minutes - extended cache time
-      gcTime: 60 * 60 * 1000, // 1 hour cache
-      networkMode: 'online',
+      refetchOnMount: false,
+      retry: 0,
+      staleTime: 30 * 60 * 1000, // 30 minutes
+      gcTime: 60 * 60 * 1000, // 1 hour
     },
     mutations: {
-      retry: 0, // Don't retry mutations
-      networkMode: 'online',
+      retry: 0,
     },
   },
 });

@@ -73,11 +73,11 @@ Create `.env.development` and `.env.production` files:
 
 ```env
 VITE_API_BASE_URL=http://localhost:5000/api
-VITE_APP_NAME=GymPro
+VITE_APP_NAME=AI-Fit
 VITE_ENABLE_DEVTOOLS=true
 ```
 
 ## License
 
-Proprietary - GymPro © 2024
+Proprietary - AI-Fit © 2024
 

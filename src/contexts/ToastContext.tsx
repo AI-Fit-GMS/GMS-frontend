@@ -7,7 +7,7 @@ import { hideToast, showToast as showToastAction } from '../redux/slices/uiSlice
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 
 interface ToastContextType {
-  showToast: (message: string, type: ToastType, duration?: number) => void;
+  showToast: (message: string, type: ToastType) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -34,7 +34,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [toast.open, dispatch]);
 
-  const showToast = useCallback((message: string, type: ToastType, duration: number = 5000) => {
+  const showToast = useCallback((message: string, type: ToastType) => {
     dispatch(showToastAction({ message, type }));
   }, [dispatch]);
 

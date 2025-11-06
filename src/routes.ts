@@ -24,6 +24,9 @@ export const ROUTES = {
   ADD_CLASS: '/classes/add',
   CLASS_SCHEDULE: '/classes/schedule',
 
+  // Community
+  COMMUNITY: '/community',
+
   // Billing
   BILLING: '/billing',
   INVOICES: '/billing/invoices',
@@ -32,12 +35,17 @@ export const ROUTES = {
 
   // Admin
   ADMIN: '/admin',
-  ADMIN_SETTINGS: '/admin/settings',
-  ADMIN_REPORTS: '/admin/reports',
+  ADMIN_DASHBOARD: '/admin/dashboard',
+  ADMIN_MANAGE_MEMBERS: '/admin/manage-members',
+  ADMIN_DIET: '/admin/diet',
+  ADMIN_TRAINING_REGIME: '/admin/training-regime',
+  ADMIN_ATTENDANCE: '/admin/attendance',
+  ADMIN_REFERRALS: '/admin/referrals',
+  ADMIN_WORKSHOP_REGISTRATIONS: '/admin/workshop-registrations',
+  ADMIN_ASSESSMENT_RESULTS: '/admin/assessment-results',
 
   // Profile
   PROFILE: '/profile',
-  SETTINGS: '/settings',
 } as const;
 
 // Helper function to generate dynamic routes

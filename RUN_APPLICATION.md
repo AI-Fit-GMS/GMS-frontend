@@ -1,4 +1,4 @@
-# 🚀 How to Run GymPro Application
+# 🚀 How to Run AI-Fit Application
 
 ## Quick Start
 
@@ -83,7 +83,7 @@ Open the URL shown in your terminal (usually `http://localhost:5173`)
    ```bash
    # Create .env.development
    VITE_API_BASE_URL=http://localhost:5000/api
-   VITE_APP_NAME=GymPro
+   VITE_APP_NAME=AI-Fit
    VITE_ENABLE_DEVTOOLS=true
    # VITE_GOOGLE_CLIENT_ID=your-google-client-id (optional)
    ```

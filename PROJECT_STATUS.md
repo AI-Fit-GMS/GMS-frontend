@@ -1,4 +1,4 @@
-# GymPro Frontend - Project Status
+# AI-Fit Frontend - Project Status
 
 ## ✅ Completed (Phase 1-5)
 

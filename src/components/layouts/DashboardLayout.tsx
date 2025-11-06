@@ -12,7 +12,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 flex">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -26,15 +26,15 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         className={`
           fixed top-0 left-0 h-full bg-white shadow-xl z-40 transition-transform duration-300
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-          w-64 
-          lg:translate-x-0 lg:static lg:h-screen lg:flex-shrink-0
+          w-64
+          lg:static lg:translate-x-0 lg:z-auto
         `}
       >
         <Sidebar onClose={() => setSidebarOpen(false)} />
       </aside>
 
-      {/* Main Content - Flexbox prevents overlap */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      {/* Main Content Area */}
+      <div className="flex-1 min-w-0 flex flex-col">
         {/* Top Navigation */}
         <TopNav />
 

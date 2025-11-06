@@ -25,34 +25,58 @@ export interface AuthResponse {
 }
 
 // Login API
+const MOCK_USERS = [
+  {
+    id: 'admin-001',
+    email: 'admin@ai-fit.com',
+    password: 'admin123',
+    firstName: 'Avery',
+    lastName: 'Admin',
+    phone: '+1234567890',
+    role: 'admin' as const,
+  },
+  {
+    id: 'member-001',
+    email: 'member@ai-fit.com',
+    password: 'member123',
+    firstName: 'Morgan',
+    lastName: 'Member',
+    phone: '+1098765432',
+    role: 'member' as const,
+  },
+];
+
 export const loginApi = async (credentials: LoginCredentials): Promise<AuthResponse> => {
-  // Mock authentication for development/testing when backend is not available
-  const MOCK_EMAIL = 'test@example.com';
-  const MOCK_PASSWORD = 'password123';
-  
-  // Check if using mock credentials
-  if (credentials.email === MOCK_EMAIL && credentials.password === MOCK_PASSWORD) {
-    // Instant response for mock authentication
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-    // Return mock response
+  const matchedMockUser = MOCK_USERS.find(
+    (user) =>
+      user.email.toLowerCase() === credentials.email.toLowerCase() &&
+      user.password === credentials.password
+  );
+
+  if (matchedMockUser) {
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
+    const mockUserPayload = {
+      id: matchedMockUser.id,
+      firstName: matchedMockUser.firstName,
+      lastName: matchedMockUser.lastName,
+      email: matchedMockUser.email,
+      phone: matchedMockUser.phone,
+      role: matchedMockUser.role,
+      avatar: undefined,
+      emailVerified: true,
+    };
+
+    localStorage.setItem('mockUser', JSON.stringify(mockUserPayload));
+
+    const timestamp = Date.now();
+
     return {
       success: true,
       data: {
-        user: {
-          id: '1',
-          firstName: 'Test',
-          lastName: 'User',
-          email: MOCK_EMAIL,
-          phone: '+1234567890',
-          role: 'admin',
-          avatar: null,
-          emailVerified: true,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
-        token: 'mock-jwt-token-' + Date.now(),
-        refreshToken: 'mock-refresh-token-' + Date.now(),
+        user: mockUserPayload,
+        token: `mock-jwt-token-${matchedMockUser.role}-${timestamp}`,
+        refreshToken: `mock-refresh-token-${matchedMockUser.role}-${timestamp}`,
       },
       message: 'Login successful (mock)',
     };
@@ -65,7 +89,9 @@ export const loginApi = async (credentials: LoginCredentials): Promise<AuthRespo
   } catch (error: any) {
     // If API call fails, check if it's a network error (backend not available)
     if (error.code === 'ERR_NETWORK' || error.message?.includes('Network Error')) {
-      throw new Error('Backend server is not available. Please use mock credentials: test@example.com / password123');
+      throw new Error(
+        'Backend server is not available. Use admin@ai-fit.com / admin123 or member@ai-fit.com / member123 to continue testing.'
+      );
     }
     throw error;
   }
@@ -73,7 +99,6 @@ export const loginApi = async (credentials: LoginCredentials): Promise<AuthRespo
 
 // Signup API
 export const signupApi = async (data: SignupData): Promise<AuthResponse> => {
-  // Try real API call
   try {
     const response = await axiosInstance.post('/auth/signup', data);
     return response.data;
@@ -84,25 +109,28 @@ export const signupApi = async (data: SignupData): Promise<AuthResponse> => {
       await new Promise(resolve => setTimeout(resolve, 100));
       
       // Return mock response for development
+      const timestamp = Date.now();
+      const mockUserPayload = {
+        id: timestamp.toString(),
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        role: 'member' as const,
+        avatar: undefined,
+        emailVerified: false,
+      };
+
+      localStorage.setItem('mockUser', JSON.stringify(mockUserPayload));
+
       return {
         success: true,
         data: {
-          user: {
-            id: Date.now().toString(),
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            phone: data.phone,
-            role: 'member',
-            avatar: null,
-            emailVerified: false,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          },
-          token: 'mock-jwt-token-' + Date.now(),
-          refreshToken: 'mock-refresh-token-' + Date.now(),
+          user: mockUserPayload,
+          token: 'mock-jwt-token-member-' + timestamp,
+          refreshToken: 'mock-refresh-token-member-' + timestamp,
         },
-        message: 'Account created successfully (mock)',
+        message: 'Signup successful (mock)',
       };
     }
     throw error;
@@ -133,28 +161,23 @@ export const getCurrentUserApi = async () => {
     const response = await axiosInstance.get('/auth/me');
     return response.data;
   } catch (error: any) {
-    // If API call fails, return mock user if token exists
+    // If API call fails, check if it's a network error (backend not available)
     if (error.code === 'ERR_NETWORK' || error.message?.includes('Network Error')) {
       const token = localStorage.getItem('authToken');
       if (token && token.startsWith('mock-jwt-token-')) {
-        // Return mock user data
-        return {
-          success: true,
-          data: {
-            user: {
-              id: '1',
-              firstName: 'Test',
-              lastName: 'User',
-              email: 'test@example.com',
-              phone: '+1234567890',
-              role: 'admin',
-              avatar: null,
-              emailVerified: true,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
+        const storedUser = localStorage.getItem('mockUser');
+        if (storedUser) {
+          return {
+            success: true,
+            data: {
+              user: {
+                ...JSON.parse(storedUser),
+                emailVerified: true,
+              },
             },
-          },
-        };
+            message: 'User retrieved (mock)',
+          };
+        }
       }
     }
     throw error;
@@ -165,10 +188,12 @@ export const getCurrentUserApi = async () => {
 export const logoutApi = async () => {
   try {
     const response = await axiosInstance.post('/auth/logout');
+    localStorage.removeItem('mockUser');
     return response.data;
   } catch (error: any) {
-    // If API call fails, still allow logout (for mock auth)
+    // If API call fails, check if it's a network error (backend not available)
     if (error.code === 'ERR_NETWORK' || error.message?.includes('Network Error')) {
+      localStorage.removeItem('mockUser');
       return { success: true, message: 'Logged out successfully' };
     }
     throw error;

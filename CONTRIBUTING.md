@@ -1,4 +1,4 @@
-# Contributing to GymPro Frontend
+# Contributing to AI-Fit Frontend
 
 Thank you for your interest in contributing! This document provides guidelines and instructions for contributing.
 
