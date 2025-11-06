@@ -1,4 +1,4 @@
-# GymPro - Gym Management System
+# AI-Fit - Gym Management System
 
 A comprehensive gym management system built with React, TypeScript, and modern web technologies.
 
