@@ -10,33 +10,50 @@ import App from './App';
 import './index.css';
 import './i18n';
 
-// Create a query client
+// Create a query client with optimized settings for fast performance
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 0, // No retries for faster failure feedback
+      staleTime: 30 * 60 * 1000, // 30 minutes - extended cache time
+      gcTime: 60 * 60 * 1000, // 1 hour cache
+      networkMode: 'online',
+    },
+    mutations: {
+      retry: 0, // Don't retry mutations
+      networkMode: 'online',
     },
   },
 });
 
-const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+// Only wrap with GoogleOAuthProvider if client ID is provided
+const AppWithProviders = () => (
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <App />
+      </ToastProvider>
+      {import.meta.env.VITE_ENABLE_DEVTOOLS === 'true' && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
+    </QueryClientProvider>
+  </Provider>
+);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId={googleClientId}>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <ToastProvider>
-            <App />
-          </ToastProvider>
-          {import.meta.env.VITE_ENABLE_DEVTOOLS === 'true' && (
-            <ReactQueryDevtools initialIsOpen={false} />
-          )}
-        </QueryClientProvider>
-      </Provider>
-    </GoogleOAuthProvider>
+    {googleClientId ? (
+      <GoogleOAuthProvider clientId={googleClientId}>
+        <AppWithProviders />
+      </GoogleOAuthProvider>
+    ) : (
+      <AppWithProviders />
+    )}
   </React.StrictMode>
 );
 
