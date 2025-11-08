@@ -11,6 +11,14 @@ export interface Trainer {
   avatar?: string;
   hourlyRate: number;
   status: 'active' | 'inactive' | 'on_leave';
+  focusAreas?: string[];
+  nutritionApproach?: string;
+  signaturePrograms?: {
+    name: string;
+    focus: string;
+    durationWeeks: number;
+  }[];
+  preferredModalities?: string[];
   schedule: {
     dayOfWeek: number; // 0-6, 0 = Sunday
     startTime: string; // "09:00"

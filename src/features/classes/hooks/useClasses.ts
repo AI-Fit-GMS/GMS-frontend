@@ -10,6 +10,10 @@ import {
   enrollInClassApi,
 } from '../../../services/classApis';
 import { showToast } from '../../../redux/slices/uiSlice';
+import {
+  buildClassMockPaginatedResponse,
+  buildClassScheduleMockResponse,
+} from '../data/mockClasses';
 
 export const useClasses = (params?: {
   page?: number;
@@ -28,7 +32,17 @@ export const useClasses = (params?: {
     refetch,
   } = useQuery({
     queryKey: ['classes', params],
-    queryFn: () => getClassesApi(params),
+    queryFn: async () => {
+      try {
+        return await getClassesApi(params);
+      } catch (err: any) {
+        if (!err?.response) {
+          console.warn('Falling back to class mock data due to network issue.', err);
+          return buildClassMockPaginatedResponse(params);
+        }
+        throw err;
+      }
+    },
   });
 
   const createMutation = useMutation({
@@ -117,7 +131,17 @@ export const useClass = (id: string) => {
 export const useClassSchedule = (date?: string) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['class-schedule', date],
-    queryFn: () => getClassScheduleApi(date),
+    queryFn: async () => {
+      try {
+        return await getClassScheduleApi(date);
+      } catch (err: any) {
+        if (!err?.response) {
+          console.warn('Falling back to class schedule mock data due to network issue.', err);
+          return buildClassScheduleMockResponse(date);
+        }
+        throw err;
+      }
+    },
   });
 
   return {

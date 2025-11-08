@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Search, Calendar, Filter } from 'lucide-react';
+import { useSelector } from 'react-redux';
 import { useClasses } from '../hooks/useClasses';
 import { useDebounce } from '../../../hooks/useDebounce';
 import Button from '../../../commonComponents/buttons/Button';
@@ -9,6 +10,7 @@ import ClassScheduleCalendar from '../components/ClassScheduleCalendar';
 import LoadingSpinner from '../../../commonComponents/loading-spinner/LoadingSpinner';
 import { useClassSchedule } from '../hooks/useClasses';
 import { format } from 'date-fns';
+import { RootState } from '../../../redux/store';
 
 const Classes = () => {
   const { t } = useTranslation();
@@ -17,6 +19,8 @@ const Classes = () => {
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { user } = useSelector((state: RootState) => state.auth);
+  const isAdmin = user?.role === 'admin';
 
   const debouncedSearch = useDebounce(searchTerm, 500);
 
@@ -50,7 +54,11 @@ const Classes = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">{t('sidebar.classes')}</h1>
-              <p className="text-gray-600 mt-1">Manage fitness classes and schedules</p>
+              <p className="text-gray-600 mt-1">
+                {isAdmin
+                  ? 'Manage programming, capacity, and instructor assignments'
+                  : 'Discover classes curated for your goals and availability'}
+              </p>
             </div>
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -67,11 +75,13 @@ const Classes = () => {
           >
             List
           </Button>
-          <Button 
-            leftIcon={<Plus className="w-4 h-4" />}
-          >
-            Add Class
-          </Button>
+          {isAdmin && (
+            <Button 
+              leftIcon={<Plus className="w-4 h-4" />}
+            >
+              Add Class
+            </Button>
+          )}
           </div>
         </div>
       </div>

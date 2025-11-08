@@ -8,6 +8,7 @@ import {
   deleteTrainerApi,
 } from '../../../services/trainerApis';
 import { showToast } from '../../../redux/slices/uiSlice';
+import { buildTrainerMockResponse } from '../data/mockTrainers';
 
 export const useTrainers = (params?: {
   page?: number;
@@ -25,7 +26,17 @@ export const useTrainers = (params?: {
     refetch,
   } = useQuery({
     queryKey: ['trainers', params],
-    queryFn: () => getTrainersApi(params),
+    queryFn: async () => {
+      try {
+        return await getTrainersApi(params);
+      } catch (err: any) {
+        if (!err?.response) {
+          console.warn('Falling back to trainer mock data due to network issue.', err);
+          return buildTrainerMockResponse(params);
+        }
+        throw err;
+      }
+    },
   });
 
   const createMutation = useMutation({

@@ -19,7 +19,7 @@ export interface Class {
   available: number;
   location: string;
   equipment: string[];
-  level: 'beginner' | 'intermediate' | 'advanced';
+  level: 'beginner' | 'intermediate' | 'advanced' | 'all';
   price: number;
   status: 'active' | 'cancelled' | 'completed';
   image?: string;
