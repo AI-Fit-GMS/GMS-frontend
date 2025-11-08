@@ -8,28 +8,15 @@ import { Input } from '../../../commonComponents/forms/Input';
 import Button from '../../../commonComponents/buttons/Button';
 import { Mail, Lock, ShieldCheck, User2, ChevronRight } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
-import { useGoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const { t } = useTranslation();
   const { login, isLoggingIn } = useAuth();
-  const { googleLoginMutation } = useGoogleAuth();
+  const { googleLogin, isGoogleLoggingIn, isGoogleEnabled } = useGoogleAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
-  // Only initialize Google login hook if client ID is provided
-  const googleLogin = googleClientId
-    ? useGoogleLogin({
-        onSuccess: (tokenResponse) => {
-          googleLoginMutation.mutate(tokenResponse.access_token);
-        },
-        onError: () => {
-          // Error handled by mutation
-        },
-      })
-    : null;
 
   const validateForm = () => {
     const newErrors = { email: '', password: '' };
@@ -163,12 +150,16 @@ const Login = () => {
                 variant="outline"
                 fullWidth
                 className="mt-4 h-12 text-base font-semibold"
-                onClick={() => googleLogin?.()}
-                disabled={googleLoginMutation.isPending}
-                isLoading={googleLoginMutation.isPending}
+                onClick={() => googleLogin()}
+                disabled={!isGoogleEnabled || isGoogleLoggingIn}
+                isLoading={isGoogleLoggingIn}
                 leftIcon={<FcGoogle className="w-5 h-5" />}
               >
-                {googleLoginMutation.isPending ? 'Signing in...' : 'Sign in with Google'}
+                {isGoogleLoggingIn
+                  ? 'Signing in...'
+                  : isGoogleEnabled
+                  ? 'Sign in with Google'
+                  : 'Google sign-in unavailable'}
               </Button>
             </div>
           )}
