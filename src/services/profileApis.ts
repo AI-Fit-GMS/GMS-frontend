@@ -57,7 +57,7 @@ export const getProfileApi = async (): Promise<ProfileResponse> => {
             pushNotifications: true,
             smsNotifications: parsedUser?.role === 'admin',
             language: 'en',
-            theme: 'light',
+            theme: 'auto',
           },
           createdAt: now,
           updatedAt: now,

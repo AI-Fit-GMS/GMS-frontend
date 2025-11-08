@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UIState {
   sidebarOpen: boolean;
-  theme: 'light' | 'dark';
+  themeMode: 'light' | 'dark' | 'auto';
+  resolvedTheme: 'light' | 'dark';
   loading: boolean;
   toast: {
     open: boolean;
@@ -13,7 +14,8 @@ interface UIState {
 
 const initialState: UIState = {
   sidebarOpen: true,
-  theme: 'light',
+  themeMode: 'auto',
+  resolvedTheme: 'light',
   loading: false,
   toast: {
     open: false,
@@ -33,7 +35,15 @@ const uiSlice = createSlice({
       state.sidebarOpen = action.payload;
     },
     toggleTheme: (state) => {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      const nextTheme = state.resolvedTheme === 'light' ? 'dark' : 'light';
+      state.themeMode = nextTheme;
+      state.resolvedTheme = nextTheme;
+    },
+    setThemeMode: (state, action: PayloadAction<UIState['themeMode']>) => {
+      state.themeMode = action.payload;
+    },
+    setResolvedTheme: (state, action: PayloadAction<UIState['resolvedTheme']>) => {
+      state.resolvedTheme = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -51,6 +61,15 @@ const uiSlice = createSlice({
   },
 });
 
-export const { toggleSidebar, setSidebarOpen, toggleTheme, setLoading, showToast, hideToast } = uiSlice.actions;
+export const {
+  toggleSidebar,
+  setSidebarOpen,
+  toggleTheme,
+  setThemeMode,
+  setResolvedTheme,
+  setLoading,
+  showToast,
+  hideToast,
+} = uiSlice.actions;
 export default uiSlice.reducer;
 

@@ -21,7 +21,7 @@ import {
 import Button from '../../../commonComponents/buttons/Button';
 import { Input } from '../../../commonComponents/forms/Input';
 import LoadingSpinner from '../../../commonComponents/loading-spinner/LoadingSpinner';
-import { showToast } from '../../../redux/slices/uiSlice';
+import { setThemeMode, showToast } from '../../../redux/slices/uiSlice';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const Profile = () => {
     pushNotifications: true,
     smsNotifications: false,
     language: 'en',
-    theme: 'light' as 'light' | 'dark' | 'auto',
+    theme: 'auto' as 'light' | 'dark' | 'auto',
   });
 
   useEffect(() => {
@@ -91,10 +91,12 @@ const Profile = () => {
         pushNotifications: profile.preferences?.pushNotifications ?? true,
         smsNotifications: profile.preferences?.smsNotifications ?? false,
         language: profile.preferences?.language || 'en',
-        theme: profile.preferences?.theme || 'light',
+        theme: profile.preferences?.theme || 'auto',
       });
+
+      dispatch(setThemeMode(profile.preferences?.theme || 'auto'));
     }
-  }, [profile]);
+  }, [dispatch, profile]);
 
   const initials = useMemo(() => {
     const first = (profile?.firstName || user?.firstName || 'A')[0];
@@ -132,6 +134,10 @@ const Profile = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'theme' && (value === 'light' || value === 'dark' || value === 'auto')) {
+      dispatch(setThemeMode(value));
+    }
   };
 
   const handleAvatarUpload = (event: ChangeEvent<HTMLInputElement>) => {

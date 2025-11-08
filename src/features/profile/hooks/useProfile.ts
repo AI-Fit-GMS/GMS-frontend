@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProfileApi, updateProfileApi, changePasswordApi, updatePreferencesApi, uploadAvatarApi } from '../../../services/profileApis';
 import { UpdateProfileData, ChangePasswordData, UpdatePreferencesData } from '../types/profile.types';
-import { showToast } from '../../../redux/slices/uiSlice';
+import { setThemeMode, showToast } from '../../../redux/slices/uiSlice';
 import { useDispatch } from 'react-redux';
 
 export const useProfile = () => {
@@ -36,9 +36,12 @@ export const useProfile = () => {
 
   const updatePreferencesMutation = useMutation({
     mutationFn: (data: UpdatePreferencesData) => updatePreferencesApi(data),
-    onSuccess: () => {
+    onSuccess: (_response, variables) => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       dispatch(showToast({ message: 'Preferences updated successfully', type: 'success' }));
+      if (variables.theme) {
+        dispatch(setThemeMode(variables.theme));
+      }
     },
     onError: (error: any) => {
       dispatch(showToast({ message: error.response?.data?.message || 'Failed to update preferences', type: 'error' }));

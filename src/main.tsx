@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { store } from './redux/store';
 import { ToastProvider } from './contexts/ToastContext';
+import ThemeManager from './contexts/ThemeManager';
 import App from './App';
 import './index.css';
 import './i18n';
@@ -34,6 +35,7 @@ const AppWithProviders = () => (
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
+        <ThemeManager />
         <App />
       </ToastProvider>
       {import.meta.env.VITE_ENABLE_DEVTOOLS === 'true' && (

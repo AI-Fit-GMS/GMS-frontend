@@ -4,6 +4,10 @@
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
+html.dark .app {
+  background: radial-gradient(circle at 0% 0%, #0f172a 0%, #020617 70%);
+}
+
 /* Page transitions */
 .page-enter {
   opacity: 0;
