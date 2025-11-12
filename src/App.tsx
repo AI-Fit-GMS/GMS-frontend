@@ -31,6 +31,7 @@ const AdminAttendance = lazy(() => import('./features/admin/pages/AdminAttendanc
 const Referrals = lazy(() => import('./features/admin/pages/Referrals'));
 const WorkshopRegistrations = lazy(() => import('./features/admin/pages/WorkshopRegistrations'));
 const AssessmentResults = lazy(() => import('./features/admin/pages/AssessmentResults'));
+const AdminEquipment = lazy(() => import('./features/equipment/pages/AdminEquipment'));
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -92,6 +93,7 @@ function App() {
               <Route path="referrals" element={<Referrals />} />
               <Route path="workshop-registrations" element={<WorkshopRegistrations />} />
               <Route path="assessment-results" element={<AssessmentResults />} />
+              <Route path="equipment" element={<AdminEquipment />} />
             </Route>
 
             {/* Redirect root to dashboard or login */}

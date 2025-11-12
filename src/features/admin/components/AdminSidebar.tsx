@@ -8,6 +8,7 @@ import {
   Share2,
   ClipboardList,
   Award,
+  Package,
 } from 'lucide-react';
 import { ROUTES } from '../../../routes';
 
@@ -20,6 +21,7 @@ const adminNavItems = [
   { icon: Share2, label: 'Referrals', description: 'Growth & rewards', path: ROUTES.ADMIN_REFERRALS },
   { icon: ClipboardList, label: 'Workshops', description: 'Events & registrations', path: ROUTES.ADMIN_WORKSHOP_REGISTRATIONS },
   { icon: Award, label: 'Assessments', description: 'Progress & evaluations', path: ROUTES.ADMIN_ASSESSMENT_RESULTS },
+  { icon: Package, label: 'Equipment', description: 'Inventory & maintenance', path: ROUTES.ADMIN_EQUIPMENT },
 ];
 
 const AdminSidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
