@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { Users, UserCog, Calendar, TrendingUp, Activity, Bell, MessageCircle, Heart, CheckCircle2 } from 'lucide-react';
+import { Users, UserCog, Calendar, TrendingUp, Activity, Bell, MessageCircle, Heart, CheckCircle2, Package } from 'lucide-react';
 import { getDashboardStatsApi, getMemberGrowthApi, getClassAttendanceApi, getRecentActivitiesApi } from '../../../services/dashboardApis';
 import { MemberGrowthData } from '../../admin/types/admin.types';
 import MemberGrowthChart from '../components/MemberGrowthChart';
@@ -12,6 +12,7 @@ import LoadingSpinner from '../../../commonComponents/loading-spinner/LoadingSpi
 import { RootState } from '../../../redux/store';
 import { ROUTES } from '../../../routes';
 import ClientProgressChart from '../components/ClientProgressChart';
+import EquipmentList from '../../equipment/components/EquipmentList';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -229,6 +230,14 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Package className="w-5 h-5 text-blue-600" />
+              <h2 className="text-lg font-semibold text-gray-800">Available Equipment</h2>
+            </div>
+            <EquipmentList />
           </div>
 
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-sm p-6">

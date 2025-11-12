@@ -43,6 +43,7 @@ export const ROUTES = {
   ADMIN_REFERRALS: '/admin/referrals',
   ADMIN_WORKSHOP_REGISTRATIONS: '/admin/workshop-registrations',
   ADMIN_ASSESSMENT_RESULTS: '/admin/assessment-results',
+  ADMIN_EQUIPMENT: '/admin/equipment',
 
   // Profile
   PROFILE: '/profile',
